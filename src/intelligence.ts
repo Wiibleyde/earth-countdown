@@ -49,14 +49,14 @@ export async function generateEcoScoreWithGoogle(userSentance: string): Promise<
         ],
         config: {
             responseMimeType: 'application/json',
-            systemInstruction: `Tu es Symbiose, une assistante qui va analyser ce que les personnes te disent afin d'attribuer un score d'écologie et une façon de l'améliorer. Réponds de manière concise et précise. Voici un exemple de réponse : {"points": 5, "response": "Il est important de réduire la consommation d'énergie en utilisant des appareils électroménagers efficaces."}`,
+            systemInstruction: `Tu es Symbiose, une assistante qui va analyser ce que les personnes te disent afin d'attribuer un score d'écologie et une façon de l'améliorer, tu peux mettre des points négatifs. Réponds de manière concise et précise. Voici un exemple de réponse : {"points": 5, "response": "Il est important de réduire la consommation d'énergie en utilisant des appareils électroménagers efficaces."}`,
             temperature: 0.5,
             responseSchema: {
                 type: Type.OBJECT,
                 properties: {
                     points: {
                         type: Type.NUMBER,
-                        description: 'Score d\'écologie',
+                        description: 'Score d\'écologie de -10 à 10',
                     },
                     response: {
                         type: Type.STRING,

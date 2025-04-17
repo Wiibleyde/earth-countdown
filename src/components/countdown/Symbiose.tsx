@@ -10,11 +10,13 @@ export function Symbiose() {
     const [answer, setAnswer] = useState<SymbioseResponse | null>(null);
     const [userInput, setUserInput] = useState<string>('');
     const [isGenerating, setIsGenerating] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     // Nouvelle fonction pour gérer l'envoi du message
     const handleSubmit = async () => {
         if (isGenerating || !userInput.trim()) return;
         setIsGenerating(true);
+        setError(null); // Reset error state on new request
         await askSymbiose(userInput);
     };
 
@@ -28,6 +30,7 @@ export function Symbiose() {
     const askSymbiose = async (userInput: string) => {
         if (isGenerating || !userInput.trim()) return;
         setIsGenerating(true);
+        setError(null); // Reset error state
         setUserInput(userInput);
         await fetch('/api/symbiose/ask', {
             method: 'POST',
@@ -36,13 +39,22 @@ export function Symbiose() {
             },
             body: JSON.stringify({ userSentance: userInput }),
         })
-            .then((response) => response.json())
+            .then(async (response) => {
+                if (!response.ok) {
+                    if (response.status === 500) {
+                        throw new Error("Erreur serveur. Veuillez réessayer plus tard.");
+                    }
+                    throw new Error(`Erreur: ${response.status}`);
+                }
+                return response.json();
+            })
             .then((data) => {
                 setAnswer(data.data);
                 setIsGenerating(false);
             })
             .catch((error) => {
                 console.error('Error:', error);
+                setError(error.message || "Une erreur s'est produite");
                 setIsGenerating(false);
             });
     }
@@ -52,7 +64,9 @@ export function Symbiose() {
             <h2 className="text-2xl font-bold mb-6 text-secondary-background">Symbiose - Assistant IA</h2>
 
             <div className="bg-gray-100 rounded-lg shadow-lg p-6 w-full max-w-md mb-6 min-h-[100px] flex flex-col items-center justify-center">
-                {answer ? (
+                {error ? (
+                    <p className="text-red-500">{error}</p>
+                ) : answer ? (
                     <>
                         <p className="text-gray-800 mb-2">{answer.response}</p>
                         <p className="text-sm text-green-600 font-medium">Impact écologique: {answer.points} points</p>

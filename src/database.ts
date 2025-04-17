@@ -159,3 +159,22 @@ export function closeDatabase(): Promise<void> {
         });
     });
 }
+
+export async function updateCountdown(userEmail: string, finishingAt: string): Promise<void> {
+    const database = await ensureDatabaseInitialized();
+
+    return new Promise((resolve, reject) => {
+        database.run(
+            `UPDATE countdown SET finishingAt = ? WHERE userEmail = ?`,
+            [finishingAt, userEmail],
+            function (err) {
+                if (err) {
+                    console.error('Error updating countdown: ' + err.message);
+                    reject(err);
+                } else {
+                    resolve();
+                }
+            }
+        );
+    });
+}
