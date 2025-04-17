@@ -50,6 +50,7 @@ export interface ICountdown {
     id: number;
     finishingAt: string;
     userEmail: string;
+    createdAt: string;
 }
 
 export function createTable(): Promise<void> {
@@ -63,7 +64,8 @@ export function createTable(): Promise<void> {
             `CREATE TABLE IF NOT EXISTS countdown (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             finishingAt TEXT NOT NULL,
-            userEmail TEXT NOT NULL UNIQUE
+            userEmail TEXT NOT NULL UNIQUE,
+            createdAt TEXT NOT NULL
         )`,
             (err) => {
                 if (err) {
@@ -103,11 +105,12 @@ export async function getCountdown(userEmail: string): Promise<ICountdown | null
 
 export async function addCountdown(userEmail: string, finishingAt: string): Promise<void> {
     const database = await ensureDatabaseInitialized();
+    const createdAt = new Date().toISOString(); // Current timestamp in ISO format
 
     return new Promise((resolve, reject) => {
         database.run(
-            `INSERT INTO countdown (userEmail, finishingAt) VALUES (?, ?)`,
-            [userEmail, finishingAt],
+            `INSERT INTO countdown (userEmail, finishingAt, createdAt) VALUES (?, ?, ?)`,
+            [userEmail, finishingAt, createdAt],
             function (err) {
                 if (err) {
                     console.error('Error adding countdown: ' + err.message);

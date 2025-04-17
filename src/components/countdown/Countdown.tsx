@@ -92,6 +92,17 @@ export function Countdown() {
                         <span className="mt-2 text-gray-700">Secondes</span>
                     </div>
                 </div>
+                <div className="mt-4 text-center">
+                    <p className="text-base text-primary">
+                        Démarré le {data?.data.createdAt && new Date(data.data.createdAt).toLocaleDateString('fr-FR', {
+                            day: 'numeric',
+                            month: 'long', 
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        })}
+                    </p>
+                </div>
             </div>
         </>
     );
