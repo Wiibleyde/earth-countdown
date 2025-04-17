@@ -32,8 +32,7 @@ export async function generateEcoScoreWithGoogle(userSentance: string): Promise<
     "use server";
     if (!ai) {
         initAi();
-        generateEcoScoreWithGoogle(userSentance);
-        return;
+        return await generateEcoScoreWithGoogle(userSentance);
     }
     const message = await ai.models.generateContent({
         model: 'gemini-2.0-flash-lite',

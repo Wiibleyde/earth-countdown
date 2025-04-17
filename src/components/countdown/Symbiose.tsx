@@ -32,6 +32,7 @@ export function Symbiose() {
         setIsGenerating(true);
         setError(null); // Reset error state
         setUserInput(userInput);
+        setAnswer(null); // Reset answer state
         await fetch('/api/symbiose/ask', {
             method: 'POST',
             headers: {
