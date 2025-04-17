@@ -1,6 +1,6 @@
 'use client';
 import { Countdown } from '@/components/countdown/Countdown';
-import { Gemini } from '@/components/countdown/Symbiose';
+import { Symbiose } from '@/components/countdown/Symbiose';
 
 export default function Home() {
     return (
@@ -10,7 +10,7 @@ export default function Home() {
                 <Countdown />
             </div>
             <div className="flex flex-col items-center justify-center mt-10 w-full" id="iaGenerator">
-                <Gemini />
+                <Symbiose />
             </div>
         </main>
     );

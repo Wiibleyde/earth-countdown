@@ -1,19 +1,21 @@
 import { useState } from 'react';
 
-export function Gemini() {
-    const [answer, setAnswer] = useState<string | null>(null);
+// Définir une interface pour la structure de réponse
+interface SymbioseResponse {
+    points: number;
+    response: string;
+}
+
+export function Symbiose() {
+    const [answer, setAnswer] = useState<SymbioseResponse | null>(null);
     const [userInput, setUserInput] = useState<string>('');
     const [isGenerating, setIsGenerating] = useState(false);
 
     // Nouvelle fonction pour gérer l'envoi du message
     const handleSubmit = async () => {
         if (isGenerating || !userInput.trim()) return;
-
         setIsGenerating(true);
-        setTimeout(() => {
-            setAnswer('This is a simulated answer from Symbiose.');
-            setIsGenerating(false);
-        }, 2000);
+        await askSymbiose(userInput);
     };
 
     // Fonction pour gérer l'appui sur la touche Entrée
@@ -23,13 +25,38 @@ export function Gemini() {
         }
     };
 
+    const askSymbiose = async (userInput: string) => {
+        if (isGenerating || !userInput.trim()) return;
+        setIsGenerating(true);
+        setUserInput(userInput);
+        await fetch('/api/symbiose/ask', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userSentance: userInput }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                setAnswer(data.data);
+                setIsGenerating(false);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                setIsGenerating(false);
+            });
+    }
+
     return (
         <div className="flex flex-col items-center justify-center mt-10 w-full">
             <h2 className="text-2xl font-bold mb-6 text-secondary-background">Symbiose - Assistant IA</h2>
 
-            <div className="bg-gray-100 rounded-lg shadow-lg p-6 w-full max-w-md mb-6 min-h-[100px] flex items-center justify-center">
+            <div className="bg-gray-100 rounded-lg shadow-lg p-6 w-full max-w-md mb-6 min-h-[100px] flex flex-col items-center justify-center">
                 {answer ? (
-                    <p className="text-gray-800">{answer}</p>
+                    <>
+                        <p className="text-gray-800 mb-2">{answer.response}</p>
+                        <p className="text-sm text-green-600 font-medium">Impact écologique: {answer.points} points</p>
+                    </>
                 ) : (
                     <p className="text-gray-500 italic">Les réponses de Symbiose apparaîtront ici</p>
                 )}
