@@ -2,7 +2,7 @@
 import { useSession } from "next-auth/react"
 import Image from "next/image"
 import Link from "next/link"
-import { LogoutIcon } from "./Icons/Logout"
+import { LogoutButton } from "./LoginUtils/Logout"
 
 export function Navbar() {
     const session = useSession()
@@ -27,18 +27,11 @@ export function Navbar() {
                             />
                             <span className="font-medium capitalize">{session.data?.user?.name}</span>
                         </div>
-                        <Link
-                            href="/api/auth/signout"
-                            className="p-2 text-red-500 hover:text-red-600 hover:bg-red-100 rounded-full transition-all duration-200"
-                            aria-label="Se déconnecter"
-                            title="Se déconnecter"
-                        >
-                            <LogoutIcon />
-                        </Link>
+                        <LogoutButton />
                     </div>
                 ) : (
                     <Link 
-                        href="/api/auth/signin"
+                        href="/login"
                         className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors duration-200 shadow-sm"
                     >
                         Se connecter

@@ -12,6 +12,7 @@
     "next": "15.3.0",
     "next-auth": "^4.24.11",
     "react": "^19.0.0",
+    "react-bootstrap-icons": "^1.11.5",
     "react-dom": "^19.0.0",
     "sqlite3": "^5.1.7"
   },

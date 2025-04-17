@@ -7,4 +7,6 @@
   --color-secondary-background: #1b5e41; /* Vert foncé - pour contraste et accent */
   --color-accent: #93c572;            /* Vert printemps - pour les éléments interactifs */
   --color-neutral: #f1f8e9;           /* Beige-vert pâle - pour les zones neutres */
+
+  --color-discord: #7289da;          /* Bleu Discord - pour les éléments liés à Discord */
 }
