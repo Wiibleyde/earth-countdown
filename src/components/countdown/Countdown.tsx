@@ -61,49 +61,47 @@ export function Countdown() {
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
     return (
-        <>
-            <div className="">
-                <div className="flex gap-6 text-center">
-                    <div className="flex flex-col">
-                        <div className="bg-white rounded-lg shadow-lg p-6 w-24 h-24 flex items-center justify-center">
-                            <span className="text-4xl font-bold text-shadow-accent">{timeLeft.days}</span>
-                        </div>
-                        <span className="mt-2 text-gray-700">Jours</span>
+        <div className="">
+            <div className="flex gap-6 text-center">
+                <div className="flex flex-col">
+                    <div className="bg-white rounded-lg shadow-lg p-6 w-24 h-24 flex items-center justify-center">
+                        <span className="text-4xl font-bold text-shadow-accent">{timeLeft.days}</span>
                     </div>
-
-                    <div className="flex flex-col">
-                        <div className="bg-white rounded-lg shadow-lg p-6 w-24 h-24 flex items-center justify-center">
-                            <span className="text-4xl font-bold text-shadow-accent">{timeLeft.hours}</span>
-                        </div>
-                        <span className="mt-2 text-gray-700">Heures</span>
-                    </div>
-
-                    <div className="flex flex-col">
-                        <div className="bg-white rounded-lg shadow-lg p-6 w-24 h-24 flex items-center justify-center">
-                            <span className="text-4xl font-bold text-shadow-accent">{timeLeft.minutes}</span>
-                        </div>
-                        <span className="mt-2 text-gray-700">Minutes</span>
-                    </div>
-
-                    <div className="flex flex-col">
-                        <div className="bg-white rounded-lg shadow-lg p-6 w-24 h-24 flex items-center justify-center">
-                            <span className="text-4xl font-bold text-shadow-accent">{timeLeft.seconds}</span>
-                        </div>
-                        <span className="mt-2 text-gray-700">Secondes</span>
-                    </div>
+                    <span className="mt-2 text-gray-700">Jours</span>
                 </div>
-                <div className="mt-4 text-center">
-                    <p className="text-base text-primary">
-                        Démarré le {data?.data.createdAt && new Date(data.data.createdAt).toLocaleDateString('fr-FR', {
-                            day: 'numeric',
-                            month: 'long', 
-                            year: 'numeric',
-                            hour: '2-digit',
-                            minute: '2-digit'
-                        })}
-                    </p>
+
+                <div className="flex flex-col">
+                    <div className="bg-white rounded-lg shadow-lg p-6 w-24 h-24 flex items-center justify-center">
+                        <span className="text-4xl font-bold text-shadow-accent">{timeLeft.hours}</span>
+                    </div>
+                    <span className="mt-2 text-gray-700">Heures</span>
+                </div>
+
+                <div className="flex flex-col">
+                    <div className="bg-white rounded-lg shadow-lg p-6 w-24 h-24 flex items-center justify-center">
+                        <span className="text-4xl font-bold text-shadow-accent">{timeLeft.minutes}</span>
+                    </div>
+                    <span className="mt-2 text-gray-700">Minutes</span>
+                </div>
+
+                <div className="flex flex-col">
+                    <div className="bg-white rounded-lg shadow-lg p-6 w-24 h-24 flex items-center justify-center">
+                        <span className="text-4xl font-bold text-shadow-accent">{timeLeft.seconds}</span>
+                    </div>
+                    <span className="mt-2 text-gray-700">Secondes</span>
                 </div>
             </div>
-        </>
+            <div className="mt-4 text-center">
+                <p className="text-base text-primary">
+                    Démarré le {data?.data.createdAt && new Date(data.data.createdAt).toLocaleDateString('fr-FR', {
+                        day: 'numeric',
+                        month: 'long', 
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    })}
+                </p>
+            </div>
+        </div>
     );
 }

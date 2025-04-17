@@ -181,3 +181,21 @@ export async function updateCountdown(userEmail: string, finishingAt: string): P
         );
     });
 }
+
+export async function getBiggestTimerLeaderboard(): Promise<ICountdown[]> {
+    const database = await ensureDatabaseInitialized();
+
+    return new Promise((resolve, reject) => {
+        database.all(
+            `SELECT * FROM countdown ORDER BY finishingAt DESC LIMIT 10`,
+            (err, rows: ICountdown[]) => {
+                if (err) {
+                    console.error('Error fetching leaderboard: ' + err.message);
+                    reject(err);
+                } else {
+                    resolve(rows);
+                }
+            }
+        );
+    });
+}

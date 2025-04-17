@@ -15,6 +15,22 @@ export function Navbar() {
             >
                 Earth Countdown
             </Link>
+            <div className="flex items-center space-x-4">
+                <Link
+                    href={'/leaderboard'}
+                    className="text-sm font-medium tracking-tight hover:text-primary transition-colors duration-200"
+                >
+                    Classement
+                </Link>
+                {session.status === 'authenticated' && (
+                    <Link
+                        href={'/countdown'}
+                        className="text-sm font-medium tracking-tight hover:text-primary transition-colors duration-200"
+                    >
+                        Countdown
+                    </Link>
+                )}
+            </div>
             <div>
                 {session.status === 'loading' ? (
                     <p className="animate-pulse">Chargement...</p>
