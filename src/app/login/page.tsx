@@ -1,6 +1,6 @@
-"use client"
+'use client';
 
-import { DiscordSign } from "@/components/LoginUtils/SignIn"
+import { DiscordSign } from '@/components/LoginUtils/SignIn';
 
 export default function Login() {
     return (
@@ -15,5 +15,5 @@ export default function Login() {
                 </div>
             </div>
         </main>
-    )
+    );
 }

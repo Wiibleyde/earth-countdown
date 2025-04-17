@@ -1,25 +1,28 @@
-"use client"
-import { useSession } from "next-auth/react"
-import Image from "next/image"
-import Link from "next/link"
-import { LogoutButton } from "./LoginUtils/Logout"
+'use client';
+import { useSession } from 'next-auth/react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { LogoutButton } from './LoginUtils/Logout';
 
 export function Navbar() {
-    const session = useSession()
+    const session = useSession();
 
     return (
         <nav className="sticky top-0 z-50 h-15 flex items-center justify-between px-6 py-4 bg-secondary-background shadow-md text-accent">
-            <Link href={"/"} className="text-xl font-bold tracking-tight hover:text-primary transition-colors duration-200">
+            <Link
+                href={'/'}
+                className="text-xl font-bold tracking-tight hover:text-primary transition-colors duration-200"
+            >
                 Earth Countdown
             </Link>
             <div>
-                {session.status === "loading" ? (
+                {session.status === 'loading' ? (
                     <p className="animate-pulse">Chargement...</p>
-                ) : session.status === "authenticated" ? (
+                ) : session.status === 'authenticated' ? (
                     <div className="flex items-center space-x-4">
                         <div className="flex items-center space-x-2">
                             <Image
-                                src={session.data?.user?.image || ""}
+                                src={session.data?.user?.image || ''}
                                 alt="User Avatar"
                                 className="w-10 h-10 rounded-full border-2 border-primary"
                                 width={40}
@@ -30,7 +33,7 @@ export function Navbar() {
                         <LogoutButton />
                     </div>
                 ) : (
-                    <Link 
+                    <Link
                         href="/login"
                         className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors duration-200 shadow-sm"
                     >
@@ -39,5 +42,5 @@ export function Navbar() {
                 )}
             </div>
         </nav>
-    )
+    );
 }
