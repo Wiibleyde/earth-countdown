@@ -50,7 +50,6 @@ export interface ICountdown {
     id: number;
     finishingAt: string;
     userEmail: string;
-    pseudo: string;
     createdAt: string;
 }
 
@@ -66,7 +65,6 @@ export function createTable(): Promise<void> {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             finishingAt TEXT NOT NULL,
             userEmail TEXT NOT NULL UNIQUE,
-            pseudo TEXT NOT NULL,
             createdAt TEXT NOT NULL
         )`,
             (err) => {
@@ -105,14 +103,14 @@ export async function getCountdown(userEmail: string): Promise<ICountdown | null
     });
 }
 
-export async function addCountdown(userEmail: string, pseudo: string, finishingAt: string): Promise<void> {
+export async function addCountdown(userEmail: string, finishingAt: string): Promise<void> {
     const database = await ensureDatabaseInitialized();
     const createdAt = new Date().toISOString(); // Current timestamp in ISO format
 
     return new Promise((resolve, reject) => {
         database.run(
-            `INSERT INTO countdown (userEmail, pseudo, finishingAt, createdAt) VALUES (?, ?, ?, ?)`,
-            [userEmail, pseudo, finishingAt, createdAt],
+            `INSERT INTO countdown (userEmail, finishingAt, createdAt) VALUES (?, ?, ?)`,
+            [userEmail, finishingAt, createdAt],
             function (err) {
                 if (err) {
                     console.error('Error adding countdown: ' + err.message);
@@ -125,17 +123,13 @@ export async function addCountdown(userEmail: string, pseudo: string, finishingA
     });
 }
 
-export async function getCountdownOrCreate(
-    userEmail: string,
-    pseudo: string,
-    finishingAt: string
-): Promise<ICountdown> {
+export async function getCountdownOrCreate(userEmail: string, finishingAt: string): Promise<ICountdown> {
     try {
         const countdown = await getCountdown(userEmail);
         if (countdown) {
             return countdown;
         } else {
-            await addCountdown(userEmail, pseudo, finishingAt);
+            await addCountdown(userEmail, finishingAt);
             const newCountdown = await getCountdown(userEmail);
             if (newCountdown) {
                 return newCountdown;
