@@ -18,7 +18,6 @@ export default function RootLayout({
     return (
         <html lang="fr">
             <body className={`antialiased bg-primary-background text-primary min-h-screen`}>
-                {/* Composant qui s'assure que la DB est initialisée côté serveur */}
                 <DbInitializer />
                 <ClientProvider>
                     <Navbar />
