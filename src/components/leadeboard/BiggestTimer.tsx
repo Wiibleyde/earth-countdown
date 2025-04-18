@@ -37,7 +37,6 @@ function CountdownTimer({ finishingAt }: TimerProps) {
                 return;
             }
 
-            // Calculer les jours, heures, minutes et secondes restants
             setTimeLeft({
                 days: Math.floor(difference / (1000 * 60 * 60 * 24)),
                 hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
@@ -70,18 +69,18 @@ export function BiggestTimer() {
 
     const { data, isLoading, error } = useSWR('/api/leaderboard/biggest', fetcher);
 
-    if (isLoading) return <div>Loading...</div>;
-    if (error) return <div>Error loading leaderboard</div>;
-    if (!data || !data.data) return <div>No data available</div>;
+    if (isLoading) return <div>Chargement...</div>;
+    if (error) return <div>Erreur lors du chargement du classement</div>;
+    if (!data || !data.data) return <div>Aucune donnée disponible</div>;
 
     return (
         <div>
             <table className="min-w-full bg-white border border-gray-200">
                 <thead>
                     <tr>
-                        <th className="py-2 px-4 border-b">Rank</th>
-                        <th className="py-2 px-4 border-b">User</th>
-                        <th className="py-2 px-4 border-b">Countdown</th>
+                        <th className="py-2 px-4 border-b">Place</th>
+                        <th className="py-2 px-4 border-b">Utilisateur</th>
+                        <th className="py-2 px-4 border-b">État du timer</th>
                     </tr>
                 </thead>
                 <tbody>

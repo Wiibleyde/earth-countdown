@@ -51,6 +51,7 @@ export interface ICountdown {
     finishingAt: string;
     userEmail: string;
     createdAt: string;
+    lossCount: number;
 }
 
 export function createTable(): Promise<void> {
@@ -65,7 +66,8 @@ export function createTable(): Promise<void> {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             finishingAt TEXT NOT NULL,
             userEmail TEXT NOT NULL UNIQUE,
-            createdAt TEXT NOT NULL
+            createdAt TEXT NOT NULL,
+            lossCount INTEGER DEFAULT 0
         )`,
             (err) => {
                 if (err) {
@@ -194,5 +196,43 @@ export async function getBiggestTimerLeaderboard(): Promise<ICountdown[]> {
                 resolve(rows);
             }
         });
+    });
+}
+
+export async function incrementLossCount(userEmail: string): Promise<void> {
+    const database = await ensureDatabaseInitialized();
+
+    return new Promise((resolve, reject) => {
+        database.run(
+            `UPDATE countdown SET lossCount = lossCount + 1 WHERE userEmail = ?`,
+            [userEmail],
+            function (err) {
+                if (err) {
+                    console.error('Error incrementing loss count: ' + err.message);
+                    reject(err);
+                } else {
+                    resolve();
+                }
+            }
+        );
+    });
+}
+
+export async function restartCountdown(userEmail: string, finishingAt: string): Promise<void> {
+    const database = await ensureDatabaseInitialized();
+
+    return new Promise((resolve, reject) => {
+        database.run(
+            `UPDATE countdown SET finishingAt = ? WHERE userEmail = ?`,
+            [finishingAt, userEmail],
+            function (err) {
+                if (err) {
+                    console.error('Error restarting countdown: ' + err.message);
+                    reject(err);
+                } else {
+                    resolve();
+                }
+            }
+        );
     });
 }

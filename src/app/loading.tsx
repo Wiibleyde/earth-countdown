@@ -3,7 +3,7 @@ export default function Loading() {
         <div className="flex items-center justify-center h-screen bg-secondary-background">
             <div className="flex flex-col items-center">
                 <svg
-                    className="animate-spin h-16 w-16 text-primary"
+                    className="animate-pulse h-16 w-16 text-primary"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                 >
@@ -23,7 +23,7 @@ export default function Loading() {
                     />
                 </svg>
                 <p className="mt-4 text-lg font-semibold text-accent">Chargement...</p>
-                <p className="text-sm text-gray-500">Veuillez patienter pendant que nous préparons votre expérience.</p>
+                <p className="text-sm text-shadow-accent">Veuillez patienter pendant que nous préparons votre expérience.</p>
             </div>
         </div>
     );
