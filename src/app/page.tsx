@@ -17,7 +17,7 @@ export default function Home() {
                         alt="Earth"
                         width={200}
                         height={200}
-                        className="animate-spin rounded-full mt-6"
+                        className="animate-spin3d rounded-full mt-6"
                     />
                 </div>
             </header>
@@ -26,13 +26,13 @@ export default function Home() {
                     <p className="text-gray-500">Chargement...</p>
                 ) : session.status === 'authenticated' ? (
                     <div className="flex flex-col items-center">
-                        <p className="text-gray-800">Bienvenue, {session.data?.user?.name}</p>
+                        <p className="text-gray-800">Bienvenue, {session.data?.user?.name}.</p>
                         <Link href="/countdown" className="mt-4 text-shadow-accent hover:underline">
                             Accéder à mon compteur
                         </Link>
                     </div>
                 ) : (
-                    <p className="text-gray-500">Veuillez vous connecter pour continuer.</p>
+                    <p className="text-gray-500">Veuillez vous <Link href={"/login"} className="text-accent hover:text-primary-light underline transition-colors duration-300">connecter</Link> pour continuer.</p>
                 )}
             </section>
         </main>

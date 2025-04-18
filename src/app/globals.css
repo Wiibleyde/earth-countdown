@@ -9,4 +9,15 @@
   --color-neutral: #f1f8e9;           /* Beige-vert pâle - pour les zones neutres */
 
   --color-discord: #7289da;          /* Bleu Discord - pour les éléments liés à Discord */
+
+  --animate-spin3d: spin3d 4s linear infinite; /* Animation de rotation 3D comme une pièce */
+}
+
+@keyframes spin3d {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
 }

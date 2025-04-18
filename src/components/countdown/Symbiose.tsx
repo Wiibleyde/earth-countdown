@@ -12,7 +12,6 @@ export function Symbiose() {
     const [isGenerating, setIsGenerating] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    // Nouvelle fonction pour gérer l'envoi du message
     const handleSubmit = async () => {
         if (isGenerating || !userInput.trim()) return;
         setIsGenerating(true);

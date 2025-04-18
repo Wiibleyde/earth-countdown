@@ -87,16 +87,16 @@ export function Countdown() {
 
     if (isLoading) return (
         <div className="flex justify-center items-center h-40">
-            <motion.div 
+            <motion.div
                 className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full"
                 animate={{ rotate: 360 }}
                 transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
             />
         </div>
     );
-    
+
     if (error) return (
-        <motion.div 
+        <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="text-red-500 text-center p-4"
@@ -104,11 +104,11 @@ export function Countdown() {
             Error: {error.message}
         </motion.div>
     );
-    
+
     return (
         <div className="py-4">
             {isExpired ? (
-                <motion.div 
+                <motion.div
                     className="flex flex-col items-center justify-center gap-4"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -124,7 +124,7 @@ export function Countdown() {
                         )) : null}
                     </p>
                     <motion.button
-                        className="px-6 py-2 bg-blue-600 text-white rounded-lg shadow-lg font-semibold"
+                        className="px-6 py-2 bg-accent text-white rounded-lg shadow-lg font-semibold"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         disabled={isRestarting}
@@ -141,7 +141,7 @@ export function Countdown() {
                         <CountdownItem value={timeLeft.minutes} label="Minutes" />
                         <CountdownItem value={timeLeft.seconds} label="Secondes" />
                     </div>
-                    <motion.div 
+                    <motion.div
                         className="mt-4 text-center"
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -173,11 +173,11 @@ export function Countdown() {
 function CountdownItem({ value, label }: { value: number, label: string }) {
     return (
         <div className="flex flex-col">
-            <motion.div 
+            <motion.div
                 className="bg-white rounded-lg shadow-lg p-6 w-24 h-24 flex items-center justify-center relative overflow-hidden"
                 whileHover={{ scale: 1.05 }}
-                transition={{ 
-                    type: "spring", 
+                transition={{
+                    type: "spring",
                     stiffness: 300,
                     boxShadow: {
                         repeat: Infinity,
@@ -185,13 +185,13 @@ function CountdownItem({ value, label }: { value: number, label: string }) {
                         ease: "easeInOut"
                     }
                 }}
-                animate={{ 
+                animate={{
                     boxShadow: ["0px 4px 10px rgba(0,0,0,0.1)", "0px 6px 15px rgba(0,0,0,0.15)", "0px 4px 10px rgba(0,0,0,0.1)"]
                 }}
             >
                 <AnimatePresence mode="popLayout">
-                    <motion.span 
-                        key={value} 
+                    <motion.span
+                        key={value}
                         className="text-4xl font-bold text-shadow-accent absolute"
                         initial={{ y: 20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
@@ -202,7 +202,7 @@ function CountdownItem({ value, label }: { value: number, label: string }) {
                     </motion.span>
                 </AnimatePresence>
             </motion.div>
-            <motion.span 
+            <motion.span
                 className="mt-2 text-gray-700"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}

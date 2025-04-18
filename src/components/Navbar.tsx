@@ -20,14 +20,14 @@ export function Navbar() {
                     href={'/leaderboard'}
                     className="text-sm font-medium tracking-tight hover:text-primary transition-colors duration-200"
                 >
-                    Classement
+                    Classements
                 </Link>
                 {session.status === 'authenticated' && (
                     <Link
                         href={'/countdown'}
                         className="text-sm font-medium tracking-tight hover:text-primary transition-colors duration-200"
                     >
-                        Countdown
+                        Mon compteur
                     </Link>
                 )}
             </div>

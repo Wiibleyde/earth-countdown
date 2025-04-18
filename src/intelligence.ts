@@ -63,7 +63,7 @@ export async function generateEcoScoreWithGoogle(userSentance: string): Promise<
             - "Je jette mes déchets dans la nature" → points: -8, response: "Cette action est très nocive pour l'environnement et les écosystèmes."
             
             Réponds de manière concise et précise, en format JSON.`,
-            temperature: 0.8,
+            temperature: 0.5,
             responseSchema: {
                 type: Type.OBJECT,
                 properties: {
