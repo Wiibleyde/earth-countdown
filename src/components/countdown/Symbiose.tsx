@@ -43,7 +43,7 @@ export function Symbiose() {
             .then(async (response) => {
                 if (!response.ok) {
                     if (response.status === 500) {
-                        throw new Error("Erreur serveur. Veuillez réessayer plus tard.");
+                        throw new Error('Erreur serveur. Veuillez réessayer plus tard.');
                     }
                     throw new Error(`Erreur: ${response.status}`);
                 }
@@ -58,7 +58,7 @@ export function Symbiose() {
                 setError(error.message || "Une erreur s'est produite");
                 setIsGenerating(false);
             });
-    }
+    };
 
     return (
         <div className="flex flex-col items-center justify-center mt-10 w-full">

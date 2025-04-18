@@ -1,5 +1,3 @@
-// Ce composant s'occupe d'initialiser la base de données côté serveur
-// et n'a pas d'effet sur le client
 'use server';
 
 import { initDatabase } from '@/database';

@@ -17,8 +17,12 @@ export async function GET() {
     if (!email) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
+    const pseudo = user?.name;
+    if (!pseudo) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
     const finishingTime = new Date(Date.now() + config.defaultCountDown * 1000);
-    const countdown = (await getCountdownOrCreate(email, finishingTime.toISOString())) as ICountdown;
+    const countdown = (await getCountdownOrCreate(email, pseudo, finishingTime.toISOString())) as ICountdown;
     if (!countdown) {
         return NextResponse.json({ error: 'Countdown not found' }, { status: 404 });
     }

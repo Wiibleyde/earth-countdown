@@ -1,6 +1,6 @@
 'use client';
 
-import { BiggestTimer } from "@/components/leadeboard/BiggestTimer";
+import { BiggestTimer } from '@/components/leadeboard/BiggestTimer';
 
 export default function Home() {
     return (

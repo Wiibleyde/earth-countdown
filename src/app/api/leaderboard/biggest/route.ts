@@ -1,6 +1,6 @@
-import { getBiggestTimerLeaderboard } from "@/database";
-import { initDatabaseOnStartup } from "@/lib/db-init";
-import { NextResponse } from "next/server";
+import { getBiggestTimerLeaderboard } from '@/database';
+import { initDatabaseOnStartup } from '@/lib/db-init';
+import { NextResponse } from 'next/server';
 
 export async function GET() {
     await initDatabaseOnStartup();

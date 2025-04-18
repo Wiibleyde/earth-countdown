@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { ICountdown } from "@/database";
-import useSWR from "swr";
-import { useEffect, useState } from "react";
+import { ICountdown } from '@/database';
+import useSWR from 'swr';
+import { useEffect, useState } from 'react';
 
 interface BiggestLeaderboardResponse {
     data: ICountdown[];
@@ -14,12 +14,15 @@ interface TimerProps {
 
 // Composant pour afficher le décompte dynamique et la jauge
 function CountdownTimer({ finishingAt }: TimerProps) {
-    const [timeLeft, setTimeLeft] = useState<{ days: number; hours: number; minutes: number; seconds: number }>({ 
-        days: 0, hours: 0, minutes: 0, seconds: 0 
+    const [timeLeft, setTimeLeft] = useState<{ days: number; hours: number; minutes: number; seconds: number }>({
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
     });
     const targetDate = new Date(finishingAt).getTime();
     const now = new Date().getTime();
-    
+
     // Calculer le temps total en secondes entre la création et la fin
     const totalDuration = targetDate - now;
     const isExpired = totalDuration <= 0;
@@ -28,27 +31,27 @@ function CountdownTimer({ finishingAt }: TimerProps) {
         const calculateTimeLeft = () => {
             const now = new Date().getTime();
             const difference = targetDate - now;
-            
+
             if (difference <= 0) {
                 setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
                 return;
             }
-            
+
             // Calculer les jours, heures, minutes et secondes restants
             setTimeLeft({
                 days: Math.floor(difference / (1000 * 60 * 60 * 24)),
                 hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
                 minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
-                seconds: Math.floor((difference % (1000 * 60)) / 1000)
+                seconds: Math.floor((difference % (1000 * 60)) / 1000),
             });
         };
-        
+
         calculateTimeLeft();
         const timer = setInterval(calculateTimeLeft, 1000);
-        
+
         return () => clearInterval(timer);
     }, [targetDate]);
-    
+
     return (
         <div className="flex flex-col w-full">
             {isExpired ? (
@@ -65,7 +68,7 @@ function CountdownTimer({ finishingAt }: TimerProps) {
 export function BiggestTimer() {
     const fetcher = (url: string): Promise<BiggestLeaderboardResponse> => fetch(url).then((res) => res.json());
 
-    const { data, isLoading, error } = useSWR('/api/leaderboard/biggest', fetcher)
+    const { data, isLoading, error } = useSWR('/api/leaderboard/biggest', fetcher);
 
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error loading leaderboard</div>;
@@ -94,5 +97,5 @@ export function BiggestTimer() {
                 </tbody>
             </table>
         </div>
-    )
+    );
 }

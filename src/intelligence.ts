@@ -29,7 +29,7 @@ export interface GenerateEcoScoreResponse {
 }
 
 export async function generateEcoScoreWithGoogle(userSentance: string): Promise<GenerateEcoScoreResponse | void> {
-    "use server";
+    'use server';
     if (!ai) {
         initAi();
         return await generateEcoScoreWithGoogle(userSentance);
@@ -69,12 +69,12 @@ export async function generateEcoScoreWithGoogle(userSentance: string): Promise<
                 properties: {
                     points: {
                         type: Type.NUMBER,
-                        description: 'Score d\'écologie de -10 à 10',
+                        description: "Score d'écologie de -10 à 10",
                     },
                     response: {
                         type: Type.STRING,
-                        description: 'Réponse de l\'IA',
-                    }
+                        description: "Réponse de l'IA",
+                    },
                 },
                 required: ['points', 'response'],
             },
@@ -85,7 +85,11 @@ export async function generateEcoScoreWithGoogle(userSentance: string): Promise<
         if (response) {
             try {
                 const parsedResponse = JSON.parse(response);
-                if (parsedResponse && typeof parsedResponse.points === 'number' && typeof parsedResponse.response === 'string') {
+                if (
+                    parsedResponse &&
+                    typeof parsedResponse.points === 'number' &&
+                    typeof parsedResponse.response === 'string'
+                ) {
                     return parsedResponse as GenerateEcoScoreResponse;
                 } else {
                     console.error('Invalid response format:', response);
