@@ -1,4 +1,5 @@
 'use client';
+import { Slogans } from '@/components/Slogans';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,7 +10,7 @@ export default function Home() {
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-gradient-to-b from-blue-50 to-blue-100">
             <header className="text-center">
-                <h1 className="text-5xl font-extrabold text-accent">Earth Countdown</h1>
+                <h1 className="text-5xl font-extrabold text-accent">Time4Earth</h1>
                 <p className="mt-4 text-xl text-gray-700">Une échéance adaptable pour un avenir durable.</p>
                 <div className="flex justify-center mt-6">
                     <Image
@@ -20,6 +21,8 @@ export default function Home() {
                         className="animate-spin3d rounded-full mt-6"
                     />
                 </div>
+                <Slogans />
+
             </header>
             <section className="mt-8 text-lg text-center bg-white shadow-md rounded-lg p-6 w-full max-w-md">
                 {session.status === 'loading' ? (

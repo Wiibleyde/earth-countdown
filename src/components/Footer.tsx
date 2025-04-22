@@ -5,7 +5,7 @@ export function Footer() {
         <footer className="mt-auto py-6 px-6 bg-secondary-background text-accent border-t border-gray-200">
             <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
                 <div className="mb-4 md:mb-0">
-                    <p className="text-sm font-medium">&copy; {new Date().getFullYear()} Earth Countdown</p>
+                    <p className="text-sm font-medium">&copy; {new Date().getFullYear()} Time4Earth</p>
                     <p className="text-xs text-accent/70 mt-1">Une échéance adaptable pour un avenir durable.</p>
                 </div>
 

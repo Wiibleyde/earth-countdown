@@ -6,7 +6,7 @@ import { Footer } from '@/components/Footer';
 import { DbInitializer } from '@/components/DbInitializer';
 
 export const metadata: Metadata = {
-    title: 'Earth Countdown',
+    title: 'Time4Earth',
     description: 'Une échéance adaptable pour un avenir durable.',
 };
 

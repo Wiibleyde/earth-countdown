@@ -13,7 +13,7 @@ export function Navbar() {
                 href={'/'}
                 className="text-xl font-bold tracking-tight hover:text-primary transition-colors duration-200"
             >
-                Earth Countdown
+                Time4Earth
             </Link>
             <div className="flex items-center space-x-4">
                 <Link
