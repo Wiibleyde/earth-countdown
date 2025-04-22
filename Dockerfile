@@ -49,8 +49,11 @@ ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Create data directory and set proper permissions
-RUN mkdir -p /app/data && chown -R nextjs:nodejs /app/data
+# Create data directory with proper permissions
+RUN mkdir -p /app/data && \
+    chown -R nextjs:nodejs /app/data && \
+    chmod 755 /app && \
+    chmod 777 /app/data
 
 COPY --from=builder /app/public ./public
 

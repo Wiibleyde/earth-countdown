@@ -13,12 +13,29 @@ function getDatabasePath() {
     }
 
     // Créer le dossier data s'il n'existe pas
-    const dataDir = path.join(process.cwd(), 'data');
+    const dataDir = process.env.IS_DOCKER === 'true' ? '/app/data' : path.join(process.cwd(), 'data');
+    
     if (!fs.existsSync(dataDir)) {
-        fs.mkdirSync(dataDir, { recursive: true });
+        try {
+            fs.mkdirSync(dataDir, { recursive: true });
+        } catch (err) {
+            console.error(`Failed to create data directory at ${dataDir}:`, err);
+            // Continue anyway as the directory might be created but without proper permissions
+        }
     }
-
-    return path.join(dataDir, 'database.db');
+    
+    // Check directory permissions
+    try {
+        const testFile = path.join(dataDir, '.write-test');
+        fs.writeFileSync(testFile, 'test');
+        fs.unlinkSync(testFile);
+    } catch (err) {
+        console.error(`Data directory ${dataDir} is not writable:`, err);
+    }
+    
+    const dbPath = path.join(dataDir, 'database.db');
+    console.log(`Database path: ${dbPath}`);
+    return dbPath;
 }
 
 // Fonction d'initialisation de la base de données
@@ -32,9 +49,19 @@ export function initDatabase(): Promise<void> {
         const dbPath = getDatabasePath();
         console.log(`Initializing database at ${dbPath}`);
 
-        db = new sqlite3.Database(dbPath, (err) => {
+        // Make sure the directory permissions are correct
+        const dbDir = path.dirname(dbPath);
+        try {
+            if (fs.existsSync(dbDir)) {
+                fs.accessSync(dbDir, fs.constants.W_OK);
+            }
+        } catch (err) {
+            console.error(`Directory ${dbDir} is not writable:`, err);
+        }
+
+        db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
             if (err) {
-                console.error('Error opening database: ' + err.message);
+                console.error('Error opening database: ' + err.message, err);
                 reject(err);
             } else {
                 console.log('Connected to the SQLite database.');
