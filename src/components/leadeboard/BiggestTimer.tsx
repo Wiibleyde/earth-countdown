@@ -1,5 +1,4 @@
 'use client';
-
 import { ICountdown } from '@/database';
 import useSWR from 'swr';
 import { useEffect, useState } from 'react';

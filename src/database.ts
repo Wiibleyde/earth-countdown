@@ -14,7 +14,7 @@ function getDatabasePath() {
 
     // Créer le dossier data s'il n'existe pas
     const dataDir = process.env.IS_DOCKER === 'true' ? '/app/data' : path.join(process.cwd(), 'data');
-    
+
     if (!fs.existsSync(dataDir)) {
         try {
             fs.mkdirSync(dataDir, { recursive: true });
@@ -23,7 +23,7 @@ function getDatabasePath() {
             // Continue anyway as the directory might be created but without proper permissions
         }
     }
-    
+
     // Check directory permissions
     try {
         const testFile = path.join(dataDir, '.write-test');
@@ -32,7 +32,7 @@ function getDatabasePath() {
     } catch (err) {
         console.error(`Data directory ${dataDir} is not writable:`, err);
     }
-    
+
     const dbPath = path.join(dataDir, 'database.db');
     console.log(`Database path: ${dbPath}`);
     return dbPath;
@@ -226,22 +226,33 @@ export async function getBiggestTimerLeaderboard(): Promise<ICountdown[]> {
     });
 }
 
+export async function getMostRestartedLeaderboard(): Promise<ICountdown[]> {
+    const database = await ensureDatabaseInitialized();
+
+    return new Promise((resolve, reject) => {
+        database.all(`SELECT * FROM countdown ORDER BY lossCount DESC LIMIT 10`, (err, rows: ICountdown[]) => {
+            if (err) {
+                console.error('Error fetching leaderboard: ' + err.message);
+                reject(err);
+            } else {
+                resolve(rows);
+            }
+        });
+    });
+}
+
 export async function incrementLossCount(userEmail: string): Promise<void> {
     const database = await ensureDatabaseInitialized();
 
     return new Promise((resolve, reject) => {
-        database.run(
-            `UPDATE countdown SET lossCount = lossCount + 1 WHERE userEmail = ?`,
-            [userEmail],
-            function (err) {
-                if (err) {
-                    console.error('Error incrementing loss count: ' + err.message);
-                    reject(err);
-                } else {
-                    resolve();
-                }
+        database.run(`UPDATE countdown SET lossCount = lossCount + 1 WHERE userEmail = ?`, [userEmail], function (err) {
+            if (err) {
+                console.error('Error incrementing loss count: ' + err.message);
+                reject(err);
+            } else {
+                resolve();
             }
-        );
+        });
     });
 }
 

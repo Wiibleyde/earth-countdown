@@ -1,30 +1,39 @@
-"use client";
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+'use client';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export function Slogans() {
     const slogans = [
-        "🚿 Chaque goutte compte",
+        '🚿 Chaque goutte compte',
         "🛒 Consommer mieux, c'est déjà agir",
-        "🚲 Bouge vert !",
-        "🌱 Petits gestes, grande planète",
+        '🚲 Bouge vert !',
+        '🌱 Petits gestes, grande planète',
         "💡 Éteins, c'est gagné !",
         "📵 Moins de clics, plus d'impact",
         "🌸 Protège ceux qui n'ont pas de voix",
-        "🧽 Nettoyer, oui. Polluer, non !"
-    ]
+        '🧽 Nettoyer, oui. Polluer, non !',
+        '🍽️ Finis ton assiette, sauve la planète',
+        "🤖 L'IA oui, mais avec parcimonie",
+    ];
     const [currentSlogan, setCurrentSlogan] = useState(0);
+    const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
+        setIsMounted(true);
+
+        if (!isMounted) {
+            setCurrentSlogan(Math.floor(Math.random() * slogans.length));
+        }
+
         const interval = setInterval(() => {
             setCurrentSlogan((prev) => (prev + 1) % slogans.length);
-        }, 5000);
+        }, 2500);
 
         return () => clearInterval(interval);
-    }, [slogans.length]);
+    }, [isMounted, slogans.length]);
 
     return (
-        <div className="flex justify-center items-center my-6">
+        <div className="flex justify-center items-center my-12">
             <AnimatePresence mode="wait">
                 <motion.div
                     key={currentSlogan}
@@ -34,11 +43,9 @@ export function Slogans() {
                     transition={{ duration: 0.5 }}
                     className="bg-green-100 border-2 border-green-500 rounded-lg p-4 shadow-md max-w-md"
                 >
-                    <p className="text-center text-lg font-medium text-green-800">
-                        {slogans[currentSlogan]}
-                    </p>
+                    <p className="text-center text-lg font-medium text-green-800">{slogans[currentSlogan]}</p>
                 </motion.div>
             </AnimatePresence>
         </div>
-    )
+    );
 }

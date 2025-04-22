@@ -61,7 +61,7 @@ export function Countdown() {
         const timer = setInterval(calculateTimeLeft, 1000);
 
         return () => clearInterval(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [finishingTime]);
 
     const handleRestart = async () => {
@@ -85,25 +85,23 @@ export function Countdown() {
         }
     };
 
-    if (isLoading) return (
-        <div className="flex justify-center items-center h-40">
-            <motion.div
-                className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-            />
-        </div>
-    );
+    if (isLoading)
+        return (
+            <div className="flex justify-center items-center h-40">
+                <motion.div
+                    className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                />
+            </div>
+        );
 
-    if (error) return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-red-500 text-center p-4"
-        >
-            Error: {error.message}
-        </motion.div>
-    );
+    if (error)
+        return (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-red-500 text-center p-4">
+                Error: {error.message}
+            </motion.div>
+        );
 
     return (
         <div className="py-4">
@@ -117,11 +115,11 @@ export function Countdown() {
                     <p className="text-center text-gray-700">
                         Votre compte à rebours a atteint zéro.
                         <br />
-                        {data?.data?.lossCount ? (data.data.lossCount > 0 && (
-                            <span className="block mt-2">
-                                Vous avez perdu {data.data.lossCount} fois.
-                            </span>
-                        )) : null}
+                        {data?.data?.lossCount
+                            ? data.data.lossCount > 0 && (
+                                  <span className="block mt-2">Vous avez perdu {data.data.lossCount} fois.</span>
+                              )
+                            : null}
                     </p>
                     <motion.button
                         className="px-6 py-2 bg-accent text-white rounded-lg shadow-lg font-semibold"
@@ -158,11 +156,13 @@ export function Countdown() {
                                     minute: '2-digit',
                                 })}
                         </p>
-                        {data?.data?.lossCount ? (data.data.lossCount > 0 && (
-                            <p className="text-sm text-gray-600 mt-2">
-                                Nombre de défaites: {data.data.lossCount}
-                            </p>
-                        )) : null}
+                        {data?.data?.lossCount
+                            ? data.data.lossCount > 0 && (
+                                  <p className="text-sm text-gray-600 mt-2">
+                                      Nombre de défaites: {data.data.lossCount}
+                                  </p>
+                              )
+                            : null}
                     </motion.div>
                 </>
             )}
@@ -170,23 +170,27 @@ export function Countdown() {
     );
 }
 
-function CountdownItem({ value, label }: { value: number, label: string }) {
+function CountdownItem({ value, label }: { value: number; label: string }) {
     return (
         <div className="flex flex-col">
             <motion.div
                 className="bg-white rounded-lg shadow-lg p-6 w-24 h-24 flex items-center justify-center relative overflow-hidden"
                 whileHover={{ scale: 1.05 }}
                 transition={{
-                    type: "spring",
+                    type: 'spring',
                     stiffness: 300,
                     boxShadow: {
                         repeat: Infinity,
                         duration: 2,
-                        ease: "easeInOut"
-                    }
+                        ease: 'easeInOut',
+                    },
                 }}
                 animate={{
-                    boxShadow: ["0px 4px 10px rgba(0,0,0,0.1)", "0px 6px 15px rgba(0,0,0,0.15)", "0px 4px 10px rgba(0,0,0,0.1)"]
+                    boxShadow: [
+                        '0px 4px 10px rgba(0,0,0,0.1)',
+                        '0px 6px 15px rgba(0,0,0,0.15)',
+                        '0px 4px 10px rgba(0,0,0,0.1)',
+                    ],
                 }}
             >
                 <AnimatePresence mode="popLayout">
@@ -196,7 +200,7 @@ function CountdownItem({ value, label }: { value: number, label: string }) {
                         initial={{ y: 20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         exit={{ y: -20, opacity: 0 }}
-                        transition={{ type: "spring", stiffness: 80 }}
+                        transition={{ type: 'spring', stiffness: 80 }}
                     >
                         {value}
                     </motion.span>

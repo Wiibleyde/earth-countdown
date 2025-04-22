@@ -23,7 +23,9 @@ export default function Loading() {
                     />
                 </svg>
                 <p className="mt-4 text-lg font-semibold text-accent">Chargement...</p>
-                <p className="text-sm text-shadow-accent">Veuillez patienter pendant que nous préparons votre expérience.</p>
+                <p className="text-sm text-shadow-accent">
+                    Veuillez patienter pendant que nous préparons votre expérience.
+                </p>
             </div>
         </div>
     );

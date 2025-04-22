@@ -22,7 +22,6 @@ export default function Home() {
                     />
                 </div>
                 <Slogans />
-
             </header>
             <section className="mt-8 text-lg text-center bg-white shadow-md rounded-lg p-6 w-full max-w-md">
                 {session.status === 'loading' ? (
@@ -35,7 +34,16 @@ export default function Home() {
                         </Link>
                     </div>
                 ) : (
-                    <p className="text-gray-500">Veuillez vous <Link href={"/login"} className="text-accent hover:text-primary-light underline transition-colors duration-300">connecter</Link> pour continuer.</p>
+                    <p className="text-gray-500">
+                        Veuillez vous{' '}
+                        <Link
+                            href={'/login'}
+                            className="text-accent hover:text-primary-light underline transition-colors duration-300"
+                        >
+                            connecter
+                        </Link>{' '}
+                        pour continuer.
+                    </p>
                 )}
             </section>
         </main>
